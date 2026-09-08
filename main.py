@@ -57,11 +57,11 @@ def highlight_mismatches(original, typed):
 st.set_page_config("Typing Speed Test", layout="centered")
 st.title("⌨️ Typing Speed Test")
 
-tab1, tab2 = st.tabs(["🖋 Typing Test", "📊 History"])
+tab1, tab2 = st.tabs(["🖋 Typing Test", " History"])
 
 with tab1:
     # Theme selection
-    theme = st.selectbox("🎨 Select Theme", ["Light", "Dark"])
+    theme = st.selectbox(" Select Theme", ["Light", "Dark"])
     if theme == "Dark":
         st.markdown("""
         <style>
@@ -92,14 +92,14 @@ with tab1:
     if st.session_state.get("started", False):
         time_left = int(st.session_state.timer - (time.time() - st.session_state.start_time))
         if time_left > 0:
-            st.warning(f"⏱️ Time Left: {time_left} seconds")
+            st.warning(f"Time Left: {time_left} seconds")
         else:
             st.session_state.started = False
-            st.error("⏰ Time's up! Please submit your result manually.")
+            st.error("Time's up! Please submit your result manually.")
 
     # Typing input
     if st.session_state.get("started", False):
-        typed_input = st.text_area("📝 Type here:", height=100)
+        typed_input = st.text_area(" Type here:", height=100)
 
         if st.button("Submit"):
             end_time = time.time()
@@ -107,7 +107,7 @@ with tab1:
             wpm = calculate_wpm(st.session_state.start_time, end_time, typed_input)
             accuracy = calculate_accuracy(original, typed_input)
 
-            st.success("✅ Test Completed!")
+            st.success("Test Completed!")
             st.metric("Words Per Minute (WPM)", wpm)
             st.metric("Accuracy (%)", f"{accuracy}%")
 
@@ -121,7 +121,7 @@ with tab1:
             # Track best WPM
             if "best_wpm" not in st.session_state or wpm > st.session_state.best_wpm:
                 st.session_state.best_wpm = wpm
-            st.info(f"🏆 Your Best WPM: {st.session_state.best_wpm}")
+            st.info(f" Your Best WPM: {st.session_state.best_wpm}")
 
             # Track history
             if "history" not in st.session_state:
@@ -134,7 +134,7 @@ with tab1:
             })
 
             # Show mistakes
-            st.markdown("### 🔍 Mistakes Highlight")
+            st.markdown("###  Mistakes Highlight")
             st.markdown(
                 highlight_mismatches(original, typed_input),
                 unsafe_allow_html=True,
@@ -147,7 +147,7 @@ with tab1:
                 del st.session_state.start_time
 
 with tab2:
-    st.subheader("📊 Typing History")
+    st.subheader("Typing History")
     if "history" in st.session_state and st.session_state.history:
         st.dataframe(st.session_state.history)
     else:
